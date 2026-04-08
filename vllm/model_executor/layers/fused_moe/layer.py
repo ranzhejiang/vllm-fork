@@ -695,7 +695,6 @@ class UnquantizedFusedMoEMethod(FusedMoEMethodBase, CustomOp):
                 topk_weights = F.softmax(router_logits,
                                          dim=1,
                                          dtype=torch.float32)
-                topk_weights = F.softmax(router_logits, dim=1, dtype=torch.float32)
             elif scoring_func == "sigmoid":
                 ori_dtype = router_logits.dtype
                 topk_weights = router_logits.float().sigmoid().to(ori_dtype)

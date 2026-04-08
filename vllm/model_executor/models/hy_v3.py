@@ -72,11 +72,6 @@ from .utils import (
     maybe_prefix,
 )
 
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
 def _cfg(cfg: PretrainedConfig, k: str, default: Any) -> Any:
     return getattr(cfg, k, default)
 
@@ -169,8 +164,6 @@ class HYV3Attention(nn.Module):
             prefix=f"{prefix}.o_proj",
         )
 
-        # [DIFF] NV通过config.rope_parameters dict传递rope参数；
-        # Gaudi直接读config字段，两者等价，保留Gaudi方式（HPU get_rope接口兼容）
         self.rotary_emb = get_rope(
             head_dim,
             rotary_dim=head_dim,
